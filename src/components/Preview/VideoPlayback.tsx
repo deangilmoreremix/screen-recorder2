@@ -3,7 +3,7 @@ import { Play, Pause, SkipBack, SkipForward, Download } from 'lucide-react';
 import { useEditorStore } from '../../store';
 
 export const VideoPlayback: React.FC = () => {
-  const { currentProject } = useEditorStore();
+  const recordedVideoUrl = useEditorStore((state) => state.recordedVideoUrl);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const videoRef = React.useRef<HTMLVideoElement>(null);
 
@@ -19,9 +19,9 @@ export const VideoPlayback: React.FC = () => {
   };
 
   const handleDownload = () => {
-    if (videoRef.current?.src) {
+    if (recordedVideoUrl) {
       const a = document.createElement('a');
-      a.href = videoRef.current.src;
+      a.href = recordedVideoUrl;
       a.download = `recording-${Date.now()}.webm`;
       document.body.appendChild(a);
       a.click();
@@ -32,10 +32,10 @@ export const VideoPlayback: React.FC = () => {
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
       <div className="aspect-video bg-gray-900 relative">
-        {currentProject?.timeline.clips[0]?.url ? (
+        {recordedVideoUrl ? (
           <video
             ref={videoRef}
-            src={currentProject.timeline.clips[0].url}
+            src={recordedVideoUrl}
             className="w-full h-full object-contain"
             onEnded={() => setIsPlaying(false)}
           />
@@ -55,13 +55,15 @@ export const VideoPlayback: React.FC = () => {
                   videoRef.current.currentTime = Math.max(0, videoRef.current.currentTime - 5);
                 }
               }}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              disabled={!recordedVideoUrl}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50"
             >
               <SkipBack className="w-5 h-5" />
             </button>
             <button
               onClick={togglePlayback}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              disabled={!recordedVideoUrl}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50"
             >
               {isPlaying ? (
                 <Pause className="w-5 h-5" />
@@ -73,12 +75,13 @@ export const VideoPlayback: React.FC = () => {
               onClick={() => {
                 if (videoRef.current) {
                   videoRef.current.currentTime = Math.min(
-                    videoRef.current.duration,
+                    videoRef.current.duration || 0,
                     videoRef.current.currentTime + 5
                   );
                 }
               }}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              disabled={!recordedVideoUrl}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50"
             >
               <SkipForward className="w-5 h-5" />
             </button>
@@ -86,7 +89,8 @@ export const VideoPlayback: React.FC = () => {
           
           <button
             onClick={handleDownload}
-            className="flex items-center space-x-2 px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            disabled={!recordedVideoUrl}
+            className="flex items-center space-x-2 px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
           >
             <Download className="w-4 h-4" />
             <span className="text-sm">Download</span>

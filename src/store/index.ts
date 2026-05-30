@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 interface EditorState {
+  recordedVideoUrl: string | null;
   videoEffects: {
     brightness: number;
     contrast: number;
@@ -26,9 +27,11 @@ interface EditorState {
   updateVideoEffects: (effects: Partial<EditorState['videoEffects']>) => void;
   updateAISettings: (settings: Partial<EditorState['aiSettings']>) => void;
   updateAudioSettings: (settings: Partial<EditorState['audioSettings']>) => void;
+  setRecordedVideoUrl: (url: string | null) => void;
 }
 
 export const useEditorStore = create<EditorState>((set) => ({
+  recordedVideoUrl: null,
   videoEffects: {
     brightness: 1,
     contrast: 1,
@@ -62,5 +65,6 @@ export const useEditorStore = create<EditorState>((set) => ({
   updateAudioSettings: (settings) =>
     set((state) => ({
       audioSettings: { ...state.audioSettings, ...settings }
-    }))
+    })),
+  setRecordedVideoUrl: (url) => set({ recordedVideoUrl: url })
 }));

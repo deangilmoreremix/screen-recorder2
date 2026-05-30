@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Camera, StopCircle, Video, Settings } from 'lucide-react';
+import { useEditorStore } from '../../store';
 import { FaceDetection } from '../AI/FaceDetection';
 
 export const VideoRecorder: React.FC = () => {
@@ -17,6 +18,7 @@ export const VideoRecorder: React.FC = () => {
     },
     audio: true
   });
+  const setRecordedVideoUrl = useEditorStore((state) => state.setRecordedVideoUrl);
 
   const startRecording = async () => {
     try {
@@ -51,9 +53,12 @@ export const VideoRecorder: React.FC = () => {
 
   useEffect(() => {
     if (recordedChunks.length > 0) {
-      // Handle the recorded video URL via store or callback
+      const blob = new Blob(recordedChunks, { type: 'video/webm' });
+      const url = URL.createObjectURL(blob);
+      setRecordedVideoUrl(url);
+      setRecordedChunks([]);
     }
-  }, [recordedChunks]);
+  }, [recordedChunks, setRecordedVideoUrl]);
 
   return (
     <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-lg">
