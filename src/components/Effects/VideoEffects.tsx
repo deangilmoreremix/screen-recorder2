@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useEditorStore } from '../../store';
 import {
-  Wand2, Droplets, Sun, Contrast, Palette, Sparkles, CloudFog, Wind,
-  Sliders, Layers, Gauge, Fingerprint
+  Wand2, Droplets, Sun, Contrast, Palette, CloudFog, Wind, Fingerprint
 } from 'lucide-react';
 
 export const VideoEffects: React.FC = () => {

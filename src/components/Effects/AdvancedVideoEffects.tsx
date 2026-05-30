@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useEditorStore } from '../../store';
 import {
-  Sliders, Palette, Gauge, Wand2, Layers, 
-  SunMedium, Contrast, Droplets, Focus
+  SunMedium, Contrast, Droplets, Focus, Gauge, Layers, Wand2
 } from 'lucide-react';
 
 interface EffectPreset {

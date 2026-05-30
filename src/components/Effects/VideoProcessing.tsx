@@ -2,7 +2,6 @@ import React from 'react';
 import { useCallback } from 'react';
 import { createFFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile } from '@ffmpeg/util';
-import { wrap } from 'comlink';
 
 // Web Worker for video processing
 const ffmpeg = createFFmpeg({ log: true });

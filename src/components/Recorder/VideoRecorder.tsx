@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Camera, StopCircle, Video, Mic, Settings } from 'lucide-react';
+import { Camera, StopCircle, Video, Settings } from 'lucide-react';
 import { FaceDetection } from '../AI/FaceDetection';
 
 export const VideoRecorder: React.FC = () => {
@@ -9,7 +9,7 @@ export const VideoRecorder: React.FC = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState<Blob[]>([]);
   const [faceDetectionEnabled, setFaceDetectionEnabled] = useState(false);
-  const [settings, setSettings] = useState({
+  const [recordingSettings] = useState({
     video: {
       width: { ideal: 1920 },
       height: { ideal: 1080 },
@@ -20,7 +20,7 @@ export const VideoRecorder: React.FC = () => {
 
   const startRecording = async () => {
     try {
-      const mediaStream = await navigator.mediaDevices.getUserMedia(settings);
+      const mediaStream = await navigator.mediaDevices.getUserMedia(recordingSettings);
       setStream(mediaStream);
       
       if (videoRef.current) {
@@ -51,9 +51,7 @@ export const VideoRecorder: React.FC = () => {
 
   useEffect(() => {
     if (recordedChunks.length > 0) {
-      const blob = new Blob(recordedChunks, { type: 'video/webm' });
-      const url = URL.createObjectURL(blob);
-      // Handle the recorded video URL here
+      // Handle the recorded video URL via store or callback
     }
   }, [recordedChunks]);
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Camera, Wand2, Sliders } from 'lucide-react';
 
 export const VideoAI: React.FC = () => {
   const [settings, setSettings] = useState({

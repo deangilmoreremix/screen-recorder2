@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import WaveSurfer from 'wavesurfer.js';
-import { Volume2, VolumeX, Music, Mic, Waveform } from 'lucide-react';
+import { Music, Waveform } from 'lucide-react';
 
 interface AudioTrack {
   id: string;

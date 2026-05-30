@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { renderMedia, selectComposition } from '@remotion/renderer';
-import { Player, RenderProgress } from '@remotion/player';
 import { Download, Loader } from 'lucide-react';
 
 interface ExportOptions {

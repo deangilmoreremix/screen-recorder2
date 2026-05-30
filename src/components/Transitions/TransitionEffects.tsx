@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useEditorStore } from '../../store';
 import { 
   ArrowLeftRight, ArrowUpDown, Combine, 
   Divide, Layers, RotateCcw, Shuffle, Move 

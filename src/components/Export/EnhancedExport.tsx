@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Download, Settings, Film, Clock, HardDrive, Gauge, Cog } from 'lucide-react';
-import { useEditorStore } from '../../store';
+import { Download, Cog } from 'lucide-react';
 
 interface ExportSettings {
   format: 'mp4' | 'webm' | 'gif' | 'png-sequence';
