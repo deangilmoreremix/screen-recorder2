@@ -1,7 +1,17 @@
 import { create } from 'zustand';
+import { VideoAnalysisResult } from '../lib/openai';
 
 interface EditorState {
   recordedVideoUrl: string | null;
+  videoThumbnail: string | null;
+  videoTranscript: string | null;
+  videoAnalysis: VideoAnalysisResult | null;
+  videoMetadata: {
+    title?: string;
+    description?: string;
+    tags?: string[];
+  } | null;
+  thumbnailsGenerating: boolean;
   videoEffects: {
     brightness: number;
     contrast: number;
@@ -28,10 +38,20 @@ interface EditorState {
   updateAISettings: (settings: Partial<EditorState['aiSettings']>) => void;
   updateAudioSettings: (settings: Partial<EditorState['audioSettings']>) => void;
   setRecordedVideoUrl: (url: string | null) => void;
+  setVideoThumbnail: (url: string | null) => void;
+  setVideoTranscript: (transcript: string | null) => void;
+  setVideoAnalysis: (analysis: VideoAnalysisResult | null) => void;
+  setVideoMetadata: (metadata: EditorState['videoMetadata']) => void;
+  setThumbnailsGenerating: (generating: boolean) => void;
 }
 
 export const useEditorStore = create<EditorState>((set) => ({
   recordedVideoUrl: null,
+  videoThumbnail: null,
+  videoTranscript: null,
+  videoAnalysis: null,
+  videoMetadata: null,
+  thumbnailsGenerating: false,
   videoEffects: {
     brightness: 1,
     contrast: 1,
@@ -66,5 +86,10 @@ export const useEditorStore = create<EditorState>((set) => ({
     set((state) => ({
       audioSettings: { ...state.audioSettings, ...settings }
     })),
-  setRecordedVideoUrl: (url) => set({ recordedVideoUrl: url })
+  setRecordedVideoUrl: (url) => set({ recordedVideoUrl: url }),
+  setVideoThumbnail: (url) => set({ videoThumbnail: url }),
+  setVideoTranscript: (transcript) => set({ videoTranscript: transcript }),
+  setVideoAnalysis: (analysis) => set({ videoAnalysis: analysis }),
+  setVideoMetadata: (metadata) => set({ videoMetadata: metadata }),
+  setThumbnailsGenerating: (generating) => set({ thumbnailsGenerating: generating })
 }));

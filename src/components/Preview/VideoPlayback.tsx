@@ -4,6 +4,8 @@ import { useEditorStore } from '../../store';
 
 export const VideoPlayback: React.FC = () => {
   const recordedVideoUrl = useEditorStore((state) => state.recordedVideoUrl);
+  const videoThumbnail = useEditorStore((state) => state.videoThumbnail);
+  const thumbnailsGenerating = useEditorStore((state) => state.thumbnailsGenerating);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const videoRef = React.useRef<HTMLVideoElement>(null);
 
@@ -31,15 +33,23 @@ export const VideoPlayback: React.FC = () => {
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-      <div className="aspect-video bg-gray-900 relative">
-        {recordedVideoUrl ? (
-          <video
-            ref={videoRef}
-            src={recordedVideoUrl}
-            className="w-full h-full object-contain"
-            onEnded={() => setIsPlaying(false)}
-          />
-        ) : (
+<div className="aspect-video bg-gray-900 relative">
+         {recordedVideoUrl ? (
+           <>
+             <video
+               ref={videoRef}
+               src={recordedVideoUrl}
+               poster={videoThumbnail || undefined}
+               className="w-full h-full object-contain"
+               onEnded={() => setIsPlaying(false)}
+             />
+             {thumbnailsGenerating && (
+               <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                 <div className="text-white">Generating thumbnails...</div>
+               </div>
+             )}
+           </>
+         ) : (
           <div className="flex items-center justify-center h-full text-gray-400">
             No recording selected
           </div>
