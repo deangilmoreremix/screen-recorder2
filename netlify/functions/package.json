@@ -1,0 +1,17 @@
+{
+  "name": "netlify-functions",
+  "version": "1.0.0",
+  "private": true,
+  "main": "process-export.ts",
+  "license": "MIT",
+  "dependencies": {
+    "fluent-ffmpeg": "^2.1.3",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/fluent-ffmpeg": "^2.1.24",
+    "@types/node": "^20.0.0",
+    "@types/node-fetch": "^2.6.11",
+    "typescript": "^5.0.0"
+  }
+}

@@ -3,6 +3,7 @@ import { Camera, StopCircle, Video, Settings, ImageIcon, FileText, BarChart3, Ta
 import { useEditorStore } from '../../store';
 import { FaceDetection } from '../AI/FaceDetection';
 import { aiImage, openaiResponses } from '../../lib/openai';
+import { uploadVideo } from '../../lib/supabase';
 
 type ProcessingStatus = 'pending' | 'processing' | 'complete' | 'error';
 
@@ -141,7 +142,7 @@ export const VideoRecorder: React.FC = () => {
   const uploadToSupabase = async (blob: Blob): Promise<string> => {
     try {
       const fileName = `video_${Date.now()}.webm`;
-      return `/api/videos/${fileName}`;
+      return await uploadVideo(blob, fileName);
     } catch (error) {
       console.error('Upload failed, falling back to local URL:', error);
       return URL.createObjectURL(blob);
