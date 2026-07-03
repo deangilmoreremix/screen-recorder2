@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useEditorStore } from '../../store';
 import {
-  Sliders, Palette, Gauge, Wand2, Layers, 
+  Gauge, Wand2, Layers,
   SunMedium, Contrast, Droplets, Focus
 } from 'lucide-react';
 
@@ -107,6 +107,7 @@ export const AdvancedVideoEffects: React.FC = () => {
       <div className="space-y-4">
         {effects.map((effect) => {
           const Icon = effect.icon;
+          const value = videoEffects[effect.param as keyof typeof videoEffects];
           return (
             <div key={effect.name} className="space-y-2">
               <div className="flex justify-between items-center">
@@ -115,7 +116,7 @@ export const AdvancedVideoEffects: React.FC = () => {
                   <span className="text-sm font-medium text-gray-700">{effect.name}</span>
                 </div>
                 <span className="text-sm text-gray-500">
-                  {Math.round(videoEffects[effect.param] * 100)}%
+                  {Math.round(value * 100)}%
                 </span>
               </div>
               <input
@@ -123,7 +124,7 @@ export const AdvancedVideoEffects: React.FC = () => {
                 min={effect.min}
                 max={effect.max}
                 step={effect.step}
-                value={videoEffects[effect.param]}
+                value={value}
                 onChange={(e) => updateVideoEffects({
                   [effect.param]: parseFloat(e.target.value)
                 })}

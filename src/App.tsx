@@ -1,4 +1,3 @@
-import React from 'react';
 import { VideoRecorder } from './components/Recorder/VideoRecorder';
 import { VideoPlayback } from './components/Preview/VideoPlayback';
 import { AdvancedVideoEffects } from './components/Effects/AdvancedVideoEffects';

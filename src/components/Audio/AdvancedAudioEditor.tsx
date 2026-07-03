@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import WaveSurfer from 'wavesurfer.js';
-import { Volume2, VolumeX, Music, Mic, Waveform } from 'lucide-react';
+import { Music, Play } from 'lucide-react';
 
 interface AudioTrack {
   id: string;
@@ -16,12 +16,12 @@ export const AdvancedAudioEditor: React.FC = () => {
   const addTrack = async (file: File) => {
     const url = URL.createObjectURL(file);
     const newTrack: AudioTrack = {
-      id: Math.random().toString(36).substr(2, 9),
+      id: Math.random().toString(36).substring(2, 11),
       url,
       volume: 1,
       muted: false,
     };
-    setTracks([...tracks, newTrack]);
+    setTracks((prev) => [...prev, newTrack]);
   };
 
   const removeTrack = (id: string) => {
@@ -30,20 +30,21 @@ export const AdvancedAudioEditor: React.FC = () => {
       wavesurfer.destroy();
       waveformRefs.current.delete(id);
     }
-    setTracks(tracks.filter(track => track.id !== id));
+    setTracks((prev) => prev.filter((track) => track.id !== id));
   };
 
   useEffect(() => {
-    tracks.forEach(track => {
+    tracks.forEach((track) => {
       if (!waveformRefs.current.has(track.id)) {
+        const container = document.getElementById(`waveform-${track.id}`);
+        if (!container) return;
         const wavesurfer = WaveSurfer.create({
-          container: `#waveform-${track.id}`,
+          container,
           waveColor: '#4f46e5',
           progressColor: '#818cf8',
           cursorColor: '#312e81',
           barWidth: 2,
           barRadius: 3,
-          responsive: true,
           height: 60,
         });
         wavesurfer.load(track.url);
@@ -82,8 +83,10 @@ export const AdvancedAudioEditor: React.FC = () => {
                     const wavesurfer = waveformRefs.current.get(track.id);
                     wavesurfer?.playPause();
                   }}
+                  className="p-1 hover:bg-gray-100 rounded"
+                  aria-label="Play/pause"
                 >
-                  <Waveform className="w-4 h-4" />
+                  <Play className="w-4 h-4" />
                 </button>
                 <span className="text-sm font-medium">Track {track.id}</span>
               </div>

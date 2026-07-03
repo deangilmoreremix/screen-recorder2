@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { Download, Settings, Film, Clock, HardDrive, Gauge, Cog } from 'lucide-react';
-import { useEditorStore } from '../../store';
+import { useState } from 'react';
+import { Download, Cog } from 'lucide-react';
 
 interface ExportSettings {
   format: 'mp4' | 'webm' | 'gif' | 'png-sequence';
@@ -52,14 +51,14 @@ export const EnhancedExport: React.FC = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  const presets = {
+  const presets: Record<string, Partial<ExportSettings>> = {
     web: {
       format: 'mp4',
       codec: 'h264',
       quality: { video: 85, audio: 90 },
       resolution: { width: 1280, height: 720 },
       fps: 30,
-      bitrate: { video: 4000, audio: 128 }
+      bitrate: { video: 4000, audio: 128 },
     },
     professional: {
       format: 'mp4',
@@ -67,7 +66,7 @@ export const EnhancedExport: React.FC = () => {
       quality: { video: 100, audio: 100 },
       resolution: { width: 3840, height: 2160 },
       fps: 60,
-      bitrate: { video: 16000, audio: 320 }
+      bitrate: { video: 16000, audio: 320 },
     },
     mobile: {
       format: 'mp4',
@@ -75,8 +74,8 @@ export const EnhancedExport: React.FC = () => {
       quality: { video: 75, audio: 80 },
       resolution: { width: 854, height: 480 },
       fps: 30,
-      bitrate: { video: 2000, audio: 96 }
-    }
+      bitrate: { video: 2000, audio: 96 },
+    },
   };
 
   const handleExport = async () => {

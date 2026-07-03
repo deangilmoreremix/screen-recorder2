@@ -1,0 +1,3 @@
+/* Static fallback SPA handler.
+   Most static hosts (Netlify, Vercel, Cloudflare Pages, etc.) serve index.html
+   for unknown routes automatically. This file documents the intent. */

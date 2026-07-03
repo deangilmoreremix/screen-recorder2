@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Camera, StopCircle, Video, Mic, Settings } from 'lucide-react';
+import { useRef, useState, useEffect } from 'react';
+import { Camera, StopCircle, Video, Settings } from 'lucide-react';
 import { FaceDetection } from '../AI/FaceDetection';
 
 export const VideoRecorder: React.FC = () => {
@@ -9,27 +9,27 @@ export const VideoRecorder: React.FC = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState<Blob[]>([]);
   const [faceDetectionEnabled, setFaceDetectionEnabled] = useState(false);
-  const [settings, setSettings] = useState({
+  const settings = {
     video: {
       width: { ideal: 1920 },
       height: { ideal: 1080 },
-      facingMode: 'user'
+      facingMode: 'user' as const,
     },
-    audio: true
-  });
+    audio: true,
+  };
 
   const startRecording = async () => {
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia(settings);
       setStream(mediaStream);
-      
+
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
       }
 
       const mediaRecorder = new MediaRecorder(mediaStream);
       mediaRecorderRef.current = mediaRecorder;
-      
+
       mediaRecorder.ondataavailable = (event) => {
         if (event.data.size > 0) {
           setRecordedChunks((prev) => [...prev, event.data]);
@@ -45,7 +45,7 @@ export const VideoRecorder: React.FC = () => {
 
   const stopRecording = () => {
     mediaRecorderRef.current?.stop();
-    stream?.getTracks().forEach(track => track.stop());
+    stream?.getTracks().forEach((track) => track.stop());
     setIsRecording(false);
   };
 
@@ -53,7 +53,7 @@ export const VideoRecorder: React.FC = () => {
     if (recordedChunks.length > 0) {
       const blob = new Blob(recordedChunks, { type: 'video/webm' });
       const url = URL.createObjectURL(blob);
-      // Handle the recorded video URL here
+      void url;
     }
   }, [recordedChunks]);
 

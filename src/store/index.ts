@@ -1,6 +1,8 @@
 import { create } from 'zustand';
+import { Project } from '../types';
 
 interface EditorState {
+  currentProject: Project | null;
   videoEffects: {
     brightness: number;
     contrast: number;
@@ -23,12 +25,14 @@ interface EditorState {
     noiseReduction: boolean;
     equalizer: number[];
   };
+  setCurrentProject: (project: Project | null) => void;
   updateVideoEffects: (effects: Partial<EditorState['videoEffects']>) => void;
   updateAISettings: (settings: Partial<EditorState['aiSettings']>) => void;
   updateAudioSettings: (settings: Partial<EditorState['audioSettings']>) => void;
 }
 
 export const useEditorStore = create<EditorState>((set) => ({
+  currentProject: null,
   videoEffects: {
     brightness: 1,
     contrast: 1,
@@ -51,7 +55,8 @@ export const useEditorStore = create<EditorState>((set) => ({
     noiseReduction: false,
     equalizer: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   },
-  updateVideoEffects: (effects) => 
+  setCurrentProject: (project) => set({ currentProject: project }),
+  updateVideoEffects: (effects) =>
     set((state) => ({
       videoEffects: { ...state.videoEffects, ...effects }
     })),

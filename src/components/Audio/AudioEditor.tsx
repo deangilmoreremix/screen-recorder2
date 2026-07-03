@@ -17,7 +17,6 @@ export const AudioEditor: React.FC = () => {
         cursorColor: '#312e81',
         barWidth: 2,
         barRadius: 3,
-        responsive: true,
         height: 60,
       });
 

@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { useEditorStore } from '../../store';
-import { 
-  ArrowLeftRight, ArrowUpDown, Combine, 
-  Divide, Layers, RotateCcw, Shuffle, Move 
+import { useState } from 'react';
+import {
+  ArrowLeftRight, ArrowUpDown, Combine,
+  Divide, Layers, RotateCcw, Shuffle, Move,
 } from 'lucide-react';
 
 export const TransitionEffects: React.FC = () => {

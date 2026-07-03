@@ -6,13 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "preview": "vite preview"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.10",
     "@ffmpeg/util": "^0.12.1",
     "@mediapipe/face_detection": "^0.4.1",
+    "@mediapipe/face_mesh": "^0.4.1633559619",
     "@supabase/supabase-js": "^2.110.0",
     "@tensorflow-models/body-segmentation": "^1.0.2",
     "@tensorflow-models/face-landmarks-detection": "^1.0.5",
@@ -25,6 +27,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.12.0",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
@@ -32,9 +35,11 @@
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
+    "globals": "^17.7.0",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.5.3",
+    "typescript-eslint": "^8.62.1",
     "vite": "^5.4.2"
   }
 }
