@@ -6,6 +6,7 @@ import { TransitionEffects } from './components/Transitions/TransitionEffects';
 import { AudioEditor } from './components/Audio/AudioEditor';
 import { VideoAI } from './components/AI/VideoAI';
 import { EnhancedExport } from './components/Export/EnhancedExport';
+import { ApiKeySettings } from './components/Settings/ApiKeySettings';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <VideoPlayback />
             <VideoAI />
             <AdvancedVideoEffects />
+            <ApiKeySettings />
             <EnhancedExport />
           </div>
         </div>
